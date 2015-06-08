@@ -6,6 +6,7 @@ public class GameController: MonoBehaviour {
 		pressedButton;
 	public GameObject Carbon;
 	Vector3 temp;
+	public Camera camera;
 
 	void Start () {
 		pressedButton = false;
@@ -28,12 +29,15 @@ public class GameController: MonoBehaviour {
 	}	
 	void createCarbon(Vector3 position)
 	{
-		Vector3 temp2 = new Vector3 (Camera.main.ScreenPointToRay (position).origin.x, Camera.main.ScreenPointToRay (position).origin.y, 0);
-		print ("Posiçao do carbono Screen to Viweport: " + Camera.main.ScreenToViewportPoint(position));
-		print ("Posiçao do carbono World to Screen: " + Camera.main.WorldToScreenPoint(position));
-		print ("Posiçao do carbono Screen to Ray: " + Camera.main.ScreenPointToRay(position));
-		print ("Posiçao do carbono Viewport to World: " + Camera.main.ViewportToWorldPoint(position));
-		//print ("Posiçao do carbono: " + Camera.main.ScreenToViewportPoint(position));
+		Vector3 temp2 = castRayToWorld(position);
 		Instantiate (Carbon, temp2, Quaternion.identity);
+	}
+
+	Vector3 castRayToWorld(Vector3 mousePos) 
+	{
+		Ray ray = Camera.main.ScreenPointToRay(mousePos);    
+		Vector3 point = ray.origin + (ray.direction * 5.0f);    
+		Debug.Log("World point " + point);
+		return point;
 	}
 }
