@@ -17,6 +17,7 @@ public class ShowHideFreeElectrons : MonoBehaviour {
 		foreach (GameObject go in freeElectron) {
 			if (!freeElectronGameObjects.Contains(go)) {
 				freeElectronGameObjects.Add(go);
+				go.SetActive(isVisible);
 			}
 		}
 	}
