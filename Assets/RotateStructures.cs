@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class RotateStructures : MonoBehaviour {
+	public Camera camera;
 	public GameObject[] molecularStructure;
 	public float rotationSpeed;
 	private GameObject currentStructure;
@@ -13,16 +14,19 @@ public class RotateStructures : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		foreach (GameObject structure in molecularStructure) {
-			if(structure.activeInHierarchy)
-			{
+			if(structure.activeInHierarchy) {
 				currentStructure = structure;
 			}
 
 		}
-		if (Input.GetMouseButton (0)) {
-			currentStructure.transform.Rotate(Input.mousePosition*Time.deltaTime*rotationSpeed);
+
+		if (currentStructure == null) {
+			Debug.Log("deu eruim"); 
+			return;
 		}
-		else currentStructure.transform.Rotate (Vector3.right*Time.deltaTime*rotationSpeed);
-	
+
+		if (Input.GetMouseButton(0)) {
+			currentStructure.transform.Rotate(new Vector3(0.0f, -1*Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")), rotationSpeed);
+		}
 	}
 }
