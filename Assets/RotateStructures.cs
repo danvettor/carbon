@@ -9,6 +9,12 @@ public class RotateStructures : MonoBehaviour, IDragHandler {
 	public float rotationSpeed;
 	private GameObject currentStructure;
 
+	void Start() {
+		foreach (GameObject structure in molecularStructure) {
+			structure.transform.position = this.GetComponent<RectTransform>().position;
+		}
+	}
+
 	public void OnDrag(PointerEventData data) {
 		foreach (GameObject structure in molecularStructure) {
 			if(structure.activeInHierarchy) {
